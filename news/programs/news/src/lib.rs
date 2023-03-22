@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("3nFwcYvF9f87YMHkGuotRjCxXgwaGiWDvWNnBJM78LFA");
 
 #[program]
 pub mod news {
@@ -16,7 +16,7 @@ pub mod news {
         date: i64,
         video_link: String,
         keywords: Vec<String>,
-    ) -> ProgramResult {
+    ) -> Result<()> {
         let news_account = &mut ctx.accounts.news;
         news_account.title = title;
         news_account.description = description;
@@ -30,7 +30,7 @@ pub mod news {
         Ok(())
     }
 
-    pub fn update_views(ctx: Context<UpdateViews>, views: u64) -> ProgramResult {
+    pub fn update_views(ctx: Context<UpdateViews>, views: u64) -> Result<()> {
         let news_account = &mut ctx.accounts.news;
         if *ctx.accounts.creator.to_account_info().key != news_account.creator {
             return Err(ErrorCode::Unauthorized.into());
@@ -58,7 +58,7 @@ pub struct News {
 pub struct CreateNews<'info> {
     #[account(init, payer = creator, space = 8 + 32 + 32 + 32 + 32 + 8 + 64 + 8 + 8 + 8 + 32)]
     pub news: Account<'info, News>,
-    #[account(signer)]
+    #[account(mut)]
     pub creator: Signer<'info>,
     pub system_program: Program<'info, System>,
 }
@@ -67,12 +67,12 @@ pub struct CreateNews<'info> {
 pub struct UpdateViews<'info> {
     #[account(mut)]
     pub news: Account<'info, News>,
-    #[account(signer)]
+    #[account()]
     pub creator: Signer<'info>,
     pub system_program: Program<'info, System>,
 }
 
-#[error]
+#[error_code]
 pub enum ErrorCode {
     #[msg("Unauthorized")]
     Unauthorized,

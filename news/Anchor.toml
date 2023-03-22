@@ -2,7 +2,7 @@
 seeds = false
 skip-lint = false
 [programs.localnet]
-news_app = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+news = "3nFwcYvF9f87YMHkGuotRjCxXgwaGiWDvWNnBJM78LFA"
 
 [registry]
 url = "https://api.apr.dev"
