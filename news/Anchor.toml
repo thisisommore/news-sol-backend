@@ -1,14 +1,14 @@
 [features]
 seeds = false
 skip-lint = false
-[programs.localnet]
+[programs.devnet]
 news = "4qf7wofgoJz27cx3e8j5MqKqEdnMyCFtXexzPh16GCnt"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "Devnet"
 wallet = "/home/gitpod/.config/solana/id.json"
 
 [scripts]
