@@ -1,8 +1,10 @@
 image:
   file: .gitpod/Dockerfile
 tasks:
-    - init: cd news && cargo build
-      command: echo $SOLANA_KEY | base64 -d  > /home/gitpod/.config/solana/id.json && solana airdrop 2
+    - init: cd news && cargo build && anchor build && yarn
+      command: |
+        echo $SOLANA_KEY | base64 -d  > /home/gitpod/.config/solana/id.json && solana airdrop 2
+
 vscode:
   extensions:
     - "rust-lang.rust-analyzer"
